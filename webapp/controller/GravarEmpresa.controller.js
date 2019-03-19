@@ -36,11 +36,17 @@ sap.ui.define([
 			var oParam = this.getOwnerComponent().getModel("parametros").getData();
 			var oJSONModel = this.getOwnerComponent().getModel("model");
 			var oModel = this.getOwnerComponent().getModel();
-			
+			var oViewModel = this.getModel("view");
+		
 			this._operacao = oParam.operacao;
 			this._sPath = oParam.sPath;
 			
 			if (this._operacao === "incluir"){
+				
+				oViewModel.setData({
+					titulo: "Inserir Nova Empresa"
+				});
+			
 				var oNovaEmpresa = {
 					"Id": 0,
 					"RazaoSocial": "",
@@ -68,6 +74,11 @@ sap.ui.define([
 				this.getView().byId("municipio").setSelectedKey("");
 				
 			} else if (this._operacao === "editar"){
+				
+				oViewModel.setData({
+					titulo: "Editar Empresa"
+				});
+				
 				oModel.read(oParam.sPath,{
 					success: function(oData) {
 						oJSONModel.setData(oData);
@@ -80,10 +91,6 @@ sap.ui.define([
 		},
 		
 		onSalvar: function(){
-			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			var oHistory = History.getInstance();
-			var sPreviousHash = oHistory.getPreviousHash();
-			
 			if (this._checarCampos(this.getView())) {
 				MessageBox.information("Preencha todos os campos obrigatórios!");
 				return;
@@ -91,19 +98,21 @@ sap.ui.define([
 			
 			if (this._operacao === "incluir") {
 				this._createEmpresa();
-				if (sPreviousHash !== undefined) {
-					window.history.go(-1);
-				} else {
-					oRouter.navTo("empresa", {}, true);
-				}
 			} else if (this._operacao === "editar") {
 				this._updateEmpresa();
-				if (sPreviousHash !== undefined) {
+			}
+		},
+		
+		_goBack: function(){
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			var oHistory = History.getInstance();
+			var sPreviousHash = oHistory.getPreviousHash();
+			
+			if (sPreviousHash !== undefined) {
 					window.history.go(-1);
 				} else {
 					oRouter.navTo("empresa", {}, true);
 				}
-			}
 		},
 		
 		_createEmpresa: function() {
@@ -136,7 +145,7 @@ sap.ui.define([
 
 			oModel.create("/Empresas", oDados, {
 				success: function() {
-					MessageBox.success("Dados gravados.");
+					MessageBox.success("Empresa inserida com sucesso!");
 				},
 				error: function(oError) {
 					MessageBox.error(oError.responseText);
@@ -174,7 +183,7 @@ sap.ui.define([
 			
 			oModel.update(this._sPath, oDados, {
 					success: function() {
-					MessageBox.success("Dados gravados.");
+					MessageBox.success("Empresa alterada com sucesso!");
 				},
 				error: function(oError) {
 					MessageBox.error(oError.responseText);
@@ -191,15 +200,11 @@ sap.ui.define([
 		},
 		
 		onVoltar: function(){
-			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			var oHistory = History.getInstance();
-			var sPreviousHash = oHistory.getPreviousHash();
+			this._goBack(); 
+		},
 		
-			if (sPreviousHash !== undefined) {
-				window.history.go(-1);
-			} else {
-				oRouter.navTo("empresa", {}, true);
-			}
+		getModel: function(sModel){
+			return this.getOwnerComponent().getModel(sModel);
 		}
 	});
 
