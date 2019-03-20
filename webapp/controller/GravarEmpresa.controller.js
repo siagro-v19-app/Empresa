@@ -118,6 +118,7 @@ sap.ui.define([
 		_createEmpresa: function() {
 			var oModel = this.getOwnerComponent().getModel();
 			var oJSONModel = this.getOwnerComponent().getModel("model");
+			var that = this;
 			
 			var oDados = oJSONModel.getData();
 
@@ -145,7 +146,11 @@ sap.ui.define([
 
 			oModel.create("/Empresas", oDados, {
 				success: function() {
-					MessageBox.success("Empresa inserida com sucesso!");
+					MessageBox.success("Empresa inserida com sucesso!", {
+						onClose: function(){
+							that._goBack(); 
+						}
+					});
 				},
 				error: function(oError) {
 					MessageBox.error(oError.responseText);
@@ -156,6 +161,7 @@ sap.ui.define([
 		_updateEmpresa: function() {
 			var oModel = this.getOwnerComponent().getModel();
 			var oJSONModel = this.getOwnerComponent().getModel("model");
+			var that = this;
 			
 			var oDados = oJSONModel.getData();
 			
@@ -183,7 +189,11 @@ sap.ui.define([
 			
 			oModel.update(this._sPath, oDados, {
 					success: function() {
-					MessageBox.success("Empresa alterada com sucesso!");
+					MessageBox.success("Empresa alterada com sucesso!", {
+						onClose: function(){
+							that._goBack();
+						}
+					});
 				},
 				error: function(oError) {
 					MessageBox.error(oError.responseText);
