@@ -39,7 +39,7 @@ xmlns:f="sap.ui.layout.form">
 								<Input id="nomefantasia" value="{model>/NomeFantasia}"/>
 								
 								<Label text="Inscrição Estadual" labelFor="insestadual"/>
-								<Input id="insestadual" value="{model>/InsEstadsual}"/>
+								<Input id="insestadual" value="{model>/InsEstadual}"/>
 								
 								<Label text="Regime Tributário" labelFor="regime"/>
 								<Select selectedKey="{model>/RegimeTributario}" 

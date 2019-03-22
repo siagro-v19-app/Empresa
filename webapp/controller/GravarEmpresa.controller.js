@@ -115,13 +115,10 @@ sap.ui.define([
 				}
 		},
 		
-		_createEmpresa: function() {
-			var oModel = this.getOwnerComponent().getModel();
+		_getDados: function(){
 			var oJSONModel = this.getOwnerComponent().getModel("model");
-			var that = this;
-			
 			var oDados = oJSONModel.getData();
-
+			
 			oDados.Pais = parseInt(oDados.Pais, 0);
 			oDados.Uf = parseInt(oDados.Uf, 0);
 			oDados.Municipio = parseInt(oDados.Municipio, 0);
@@ -143,8 +140,15 @@ sap.ui.define([
 					uri: "/Municipios(" + oDados.Municipio + ")"
 				}
 			};
-
-			oModel.create("/Empresas", oDados, {
+			
+			return oDados;
+		},
+		
+		_createEmpresa: function() {
+			var oModel = this.getOwnerComponent().getModel();
+			var that = this;
+			
+			oModel.create("/Empresas", this._getDados(), {
 				success: function() {
 					MessageBox.success("Empresa inserida com sucesso!", {
 						onClose: function(){
@@ -160,34 +164,9 @@ sap.ui.define([
 		
 		_updateEmpresa: function() {
 			var oModel = this.getOwnerComponent().getModel();
-			var oJSONModel = this.getOwnerComponent().getModel("model");
 			var that = this;
 			
-			var oDados = oJSONModel.getData();
-			
-			oDados.Pais = parseInt(oDados.Pais, 0);
-			oDados.Uf = parseInt(oDados.Uf, 0);
-			oDados.Municipio = parseInt(oDados.Municipio, 0);
-			
-			oDados.PaisBacenDetails = {
-				__metadata: {
-					uri: "/PaisBacens(" + oDados.Pais + ")"
-				}
-			};
-			
-			oDados.UfDetails = {
-				__metadata: {
-					uri: "/Ufs(" + oDados.Uf + ")"
-				}
-			};
-			
-			oDados.MunicipioDetails = {
-				__metadata: {
-					uri: "/Municipios(" + oDados.Municipio + ")"
-				}
-			};
-			
-			oModel.update(this._sPath, oDados, {
+			oModel.update(this._sPath, this._getDados(), {
 					success: function() {
 					MessageBox.success("Empresa alterada com sucesso!", {
 						onClose: function(){
