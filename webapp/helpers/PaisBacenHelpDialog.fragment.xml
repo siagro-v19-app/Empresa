@@ -1,0 +1,17 @@
+<core:FragmentDefinition	
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog
+		title="Países BACEN"
+		class="sapUiPopupWithPadding"
+		items="{/PaisBacens}"
+		search="_handleValueHelpSearch"
+		confirm="_handleValueHelpClose"
+		cancel="_handleValueHelpClose">
+		<StandardListItem
+			iconDensityAware="false"
+			iconInset="false"
+			title="{Nome}"
+			description="{Id}" />
+	</SelectDialog>
+</core:FragmentDefinition>

@@ -3,9 +3,11 @@ sap.ui.define([
 	"sap/ui/core/routing/History",
 	"sap/m/MessageBox",
 	"sap/ui/model/json/JSONModel",
-	"idxtec/lib/fragment/PaisBacenHelpDialog",
-	"idxtec/lib/fragment/MunicipiosHelpDialog"
-], function(Controller, History, MessageBox, JSONModel, PaisBacenHelpDialog, MunicipiosHelpDialog) {
+	"br/com/idxtecEmpresa/helpers/UfHelpDialog",
+	"br/com/idxtecEmpresa/helpers/PaisBacenHelpDialog",
+	"br/com/idxtecEmpresa/helpers/MunicipiosHelpDialog",
+	"br/com/idxtecEmpresa/services/Session"
+], function(Controller, History, MessageBox, JSONModel, UfHelpDialog, PaisBacenHelpDialog, MunicipiosHelpDialog, Session) {
 	"use strict";
 
 	return Controller.extend("br.com.idxtecEmpresa.controller.GravarEmpresa", {
@@ -22,14 +24,31 @@ sap.ui.define([
 			this.getOwnerComponent().setModel(oJSONModel,"model");
 		},
 		
-		handleSearchPais: function(oEvent){
-			var oHelp = new PaisBacenHelpDialog(this.getView(), "pais");
-			oHelp.getDialog().open();
+		ufReceived: function() {
+			this.getView().byId("uf").setSelectedKey(this.getModel("model").getProperty("/Uf"));
 		},
 		
-		handleSearchMunicipios: function(oEvent){
-			var oHelp = new MunicipiosHelpDialog(this.getView(), "municipio");
-			oHelp.getDialog().open();
+		municipioReceived: function() {
+			this.getView().byId("municipio").setSelectedKey(this.getModel("model").getProperty("/Municipio"));
+		},
+		
+		paisBacenReceived: function() {
+			this.getView().byId("pais").setSelectedKey(this.getModel("model").getProperty("/Pais"));
+		},
+		
+		handleSearchUf: function(oEvent){
+			var sInputId = oEvent.getParameter("id");
+			UfHelpDialog.handleValueHelp(this.getView(), sInputId, this);
+		},
+		
+		handleSearchMunicipio: function(oEvent){
+			var sInputId = oEvent.getParameter("id");
+			MunicipiosHelpDialog.handleValueHelp(this.getView(), sInputId, this);
+		},
+		
+		handleSearchPais: function(oEvent){
+			var sInputId = oEvent.getParameter("id");
+			PaisBacenHelpDialog.handleValueHelp(this.getView(), sInputId, this);
 		},
 		
 		_routerMatch: function(){
@@ -40,6 +59,10 @@ sap.ui.define([
 		
 			this._operacao = oParam.operacao;
 			this._sPath = oParam.sPath;
+			
+			this.getView().byId("pais").setValue(null);
+			this.getView().byId("uf").setValue(null);
+			this.getView().byId("municipio").setValue(null);
 			
 			if (this._operacao === "incluir"){
 				
@@ -64,14 +87,14 @@ sap.ui.define([
 					"Logradouro": "",
 					"Numero": "",
 					"Complemento": "",
-					"Telefone": ""
+					"Telefone": "",
+					"Empresa" : Session.get("EMPRESA_ID"),
+					"Usuario": Session.get("USUARIO_ID"),
+					"EmpresaDetails": { __metadata: { uri: "/Empresas(" + Session.get("EMPRESA_ID") + ")"}},
+					"UsuarioDetails": { __metadata: { uri: "/Usuarios(" + Session.get("USUARIO_ID") + ")"}}
 				};
 				
 				oJSONModel.setData(oNovaEmpresa);
-				
-				this.getView().byId("pais").setSelectedKey("");
-				this.getView().byId("uf").setSelectedKey("");
-				this.getView().byId("municipio").setSelectedKey("");
 				
 			} else if (this._operacao === "editar"){
 				
@@ -82,9 +105,6 @@ sap.ui.define([
 				oModel.read(oParam.sPath,{
 					success: function(oData) {
 						oJSONModel.setData(oData);
-					},
-					error: function(oError) {
-						MessageBox.error(oError.responseText);
 					}
 				});
 			}
@@ -92,7 +112,7 @@ sap.ui.define([
 		
 		onSalvar: function(){
 			if (this._checarCampos(this.getView())) {
-				MessageBox.information("Preencha todos os campos obrigatórios!");
+				MessageBox.warning("Preencha todos os campos obrigatórios!");
 				return;
 			}
 			
@@ -119,9 +139,9 @@ sap.ui.define([
 			var oJSONModel = this.getOwnerComponent().getModel("model");
 			var oDados = oJSONModel.getData();
 			
-			oDados.Pais = parseInt(oDados.Pais, 0);
-			oDados.Uf = parseInt(oDados.Uf, 0);
-			oDados.Municipio = parseInt(oDados.Municipio, 0);
+			oDados.Pais = oDados.Pais ? oDados.Pais : 0;
+			oDados.Uf = oDados.Uf ? oDados.Uf : 0;
+			oDados.Municipio = oDados.Municipio ? oDados.Municipio : 0;
 			
 			oDados.PaisBacenDetails = {
 				__metadata: {
@@ -155,9 +175,6 @@ sap.ui.define([
 							that._goBack(); 
 						}
 					});
-				},
-				error: function(oError) {
-					MessageBox.error(oError.responseText);
 				}
 			});
 		},
@@ -173,9 +190,6 @@ sap.ui.define([
 							that._goBack();
 						}
 					});
-				},
-				error: function(oError) {
-					MessageBox.error(oError.responseText);
 				}
 			});
 		},

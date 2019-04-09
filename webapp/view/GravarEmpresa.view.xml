@@ -6,29 +6,28 @@ xmlns:html="http://www.w3.org/1999/xhtml"
 xmlns:f="sap.ui.layout.form">
 	<App>
 		<pages>
-			<Page showNavButton="true"
-				navButtonPress="onVoltar">
+			<Page showHeader="false">
 				<content>
-					<VBox class="sapUiSmallMargin">	
-						<f:SimpleForm id="SimpleFormChange480_Trial"
-						editable="true"
-						layout="ResponsiveGridLayout"
-						title="{view>/titulo}"
-						labelSpanXL="4"
-						labelSpanL="4"
-						labelSpanM="4"
-						labelSpanS="12"
-						adjustLabelSpan="false"
-						emptySpanXL="0"
-						emptySpanL="0"
-						emptySpanM="0"
-						emptySpanS="0"
-						columnsXL="2"
-						columnsL="2"
-						columnsM="2"
-						singleContainerFullSize="false">
+					<Panel headerText="Empresa">
+						<VBox class="sapUiSmallMargin">	
+						<f:SimpleForm id="formEmpresa"
+							editable="true"
+							layout="ResponsiveGridLayout"
+							labelSpanXL="4"
+							labelSpanL="4"
+							labelSpanM="4"
+							labelSpanS="12"
+							adjustLabelSpan="false"
+							emptySpanXL="0"
+							emptySpanL="0"
+							emptySpanM="0"
+							emptySpanS="0"
+							columnsXL="2"
+							columnsL="2"
+							columnsM="2"
+							singleContainerFullSize="false">
 							<f:content>
-								<core:Title text="Dados cadastrais"/>
+								<core:Title text="{view>/titulo}"/>
 								<Label text="Razão Social" labelFor="razaosocial"/>
 								<Input id="razaosocial" value="{model>/RazaoSocial}" required="true"/>
 								
@@ -56,33 +55,54 @@ xmlns:f="sap.ui.layout.form">
 								<Input id="email" value="{model>/Email}"/>
 								
 								<Label text="País BACEN" labelFor="pais"/>
-								<Input selectedKey="{model>/Pais}"
+								<Input selectedKey="{path: 'model>/Pais', type: 'sap.ui.model.odata.type.Int32'}"
 									textFormatMode="KeyValue"
 									showSuggestion="true"
 									showValueHelp="true"
 									valueHelpRequest="handleSearchPais"
-									suggestionItems="{path: '/PaisBacens'}"
+									suggestionItems="{
+										path: '/PaisBacens',
+										events: {
+											dataReceived: '.paisBacenReceived'
+										}
+									}"
 									id="pais">
 									<suggestionItems>
 										<core:ListItem key="{Id}" text="{Nome}" additionalText="{Codigo}"/>
 									</suggestionItems>
 								</Input>
 								
-								<core:Title text="Endereço"/>
+								<core:Title/>
 								<Label text="UF" labelFor="uf"/>
-								<ComboBox selectedKey="{model>/Uf}"
-									items="{path: '/Ufs'}"
-									id="uf"> 
-									<core:ListItem key="{Id}" text="{Sigla}"/>
-								</ComboBox>
-								
-								<Label text="Município" labelFor="municipio"/>
-								<Input selectedKey="{model>/Municipio}"
+								<Input selectedKey="{path: 'model>/Uf', type: 'sap.ui.model.odata.type.Int32'}"
 									textFormatMode="KeyValue"
 									showSuggestion="true"
 									showValueHelp="true"
-									valueHelpRequest="handleSearchMunicipios"
-									suggestionItems="{path: '/Municipios'}"
+									valueHelpRequest="handleSearchUf"
+									suggestionItems="{
+										path: '/Ufs',
+										events: {
+											dataReceived: '.ufReceived'
+										}
+									}"
+									id="uf">
+									<suggestionItems>
+										<core:ListItem key="{Id}" text="{Sigla}"/>
+									</suggestionItems>
+								</Input>
+								
+								<Label text="Município" labelFor="municipio"/>
+								<Input selectedKey="{path: 'model>/Municipio', type: 'sap.ui.model.odata.type.Int32'}"
+									textFormatMode="KeyValue"
+									showSuggestion="true"
+									showValueHelp="true"
+									valueHelpRequest="handleSearchMunicipio"
+									suggestionItems="{
+										path: '/Municipios',
+										events: {
+											dataReceived: '.municipioReceived'
+										}
+									}"
 									id="municipio">
 									<suggestionItems>
 										<core:ListItem key="{Id}" text="{Nome}" additionalText="{Codigo}"/>
@@ -109,11 +129,14 @@ xmlns:f="sap.ui.layout.form">
 							</f:content>
 						</f:SimpleForm>
 					</VBox>
+					</Panel>
+					
 				</content>
 				<footer>
 					<Toolbar>
 						<ToolbarSpacer/>
-						<Button id="salvar" text="Salvar" press="onSalvar"/>
+						<Button text="Salvar" icon="sap-icon://save" press="onSalvar"/>
+						<Button text="Cancelar" icon="sap-icon://reset" press="onVoltar"/>
 					</Toolbar>
 				</footer>
 			</Page>
