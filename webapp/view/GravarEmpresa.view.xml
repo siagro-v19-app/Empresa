@@ -130,7 +130,6 @@ xmlns:f="sap.ui.layout.form">
 						</f:SimpleForm>
 					</VBox>
 					</Panel>
-					
 				</content>
 				<footer>
 					<Toolbar>
