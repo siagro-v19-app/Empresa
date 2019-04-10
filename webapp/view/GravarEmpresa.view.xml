@@ -8,128 +8,128 @@ xmlns:f="sap.ui.layout.form">
 		<pages>
 			<Page showHeader="false">
 				<content>
-					<Panel headerText="Empresa">
-						<VBox class="sapUiSmallMargin">	
-						<f:SimpleForm id="formEmpresa"
-							editable="true"
-							layout="ResponsiveGridLayout"
-							labelSpanXL="4"
-							labelSpanL="4"
-							labelSpanM="4"
-							labelSpanS="12"
-							adjustLabelSpan="false"
-							emptySpanXL="0"
-							emptySpanL="0"
-							emptySpanM="0"
-							emptySpanS="0"
-							columnsXL="2"
-							columnsL="2"
-							columnsM="2"
-							singleContainerFullSize="false">
-							<f:content>
-								<core:Title text="{view>/titulo}"/>
-								<Label text="Razão Social" labelFor="razaosocial"/>
-								<Input id="razaosocial" value="{model>/RazaoSocial}" required="true"/>
-								
-								<Label text="CNPJ" labelFor="cnpj"/>
-								<Input id="cnpj" value="{model>/Cnpj}" required="true"/>
-								
-								<Label text="Nome Fantasia" labelFor="nomefantasia"/>
-								<Input id="nomefantasia" value="{model>/NomeFantasia}"/>
-								
-								<Label text="Inscrição Estadual" labelFor="insestadual"/>
-								<Input id="insestadual" value="{model>/InsEstadual}"/>
-								
-								<Label text="Regime Tributário" labelFor="regime"/>
-								<Select selectedKey="{model>/RegimeTributario}" 
-									id="regime">
-									<core:Item key="SIMPLES_NACIONAL" text="SIMPLES NACIONAL"/>
-									<core:Item key="SIMPLES_NACIONAL_EXCESSO_SUBLIMITE" text="SIMPLES NACIONAL - EXCESSO SUBLIMITE"/>
-									<core:Item key="REGIME_NORMAL" text="REGIME NORMAL"/>
-								</Select>
-								
-								<Label text="Contato" labelFor="contato"/>
-								<Input id="contato" value="{model>/Contato}"/>
-								
-								<Label text="E-mail" labelFor="email"/>
-								<Input id="email" value="{model>/Email}"/>
-								
-								<Label text="País BACEN" labelFor="pais"/>
-								<Input selectedKey="{path: 'model>/Pais', type: 'sap.ui.model.odata.type.Int32'}"
-									textFormatMode="KeyValue"
-									showSuggestion="true"
-									showValueHelp="true"
-									valueHelpRequest="handleSearchPais"
-									suggestionItems="{
-										path: '/PaisBacens',
-										events: {
-											dataReceived: '.paisBacenReceived'
-										}
-									}"
-									id="pais">
-									<suggestionItems>
-										<core:ListItem key="{Id}" text="{Nome}" additionalText="{Codigo}"/>
-									</suggestionItems>
-								</Input>
-								
-								<core:Title/>
-								<Label text="UF" labelFor="uf"/>
-								<Input selectedKey="{path: 'model>/Uf', type: 'sap.ui.model.odata.type.Int32'}"
-									textFormatMode="KeyValue"
-									showSuggestion="true"
-									showValueHelp="true"
-									valueHelpRequest="handleSearchUf"
-									suggestionItems="{
-										path: '/Ufs',
-										events: {
-											dataReceived: '.ufReceived'
-										}
-									}"
-									id="uf">
-									<suggestionItems>
-										<core:ListItem key="{Id}" text="{Sigla}"/>
-									</suggestionItems>
-								</Input>
-								
-								<Label text="Município" labelFor="municipio"/>
-								<Input selectedKey="{path: 'model>/Municipio', type: 'sap.ui.model.odata.type.Int32'}"
-									textFormatMode="KeyValue"
-									showSuggestion="true"
-									showValueHelp="true"
-									valueHelpRequest="handleSearchMunicipio"
-									suggestionItems="{
-										path: '/Municipios',
-										events: {
-											dataReceived: '.municipioReceived'
-										}
-									}"
-									id="municipio">
-									<suggestionItems>
-										<core:ListItem key="{Id}" text="{Nome}" additionalText="{Codigo}"/>
-									</suggestionItems>
-								</Input>
-								
-								<Label text="CEP" labelFor="cep"/>
-								<Input id="cep" value="{model>/Cep}"/>
-								
-								<Label text="Bairro" labelFor="bairro"/>
-								<Input id="bairro" value="{model>/Bairro}"/>
-								
-								<Label text="Logradouro" labelFor="logradouro"/>
-								<Input id="logradouro" value="{model>/Logradouro}"/>
-								
-								<Label text="Número" labelFor="numero"/>
-								<Input id="numero" value="{model>/Numero}"/>
-								
-								<Label text="Complemento" labelFor="comp"/>
-								<Input id="comp" value="{model>/Complemento}"/>
-								
-								<Label text="Telefone" labelFor="tel"/>
-								<Input id="tel" value="{model>/Telefone}"/>
-							</f:content>
-						</f:SimpleForm>
+					<VBox class="sapUiSmallMargin">
+						<Panel headerText="Empresa">
+							<f:SimpleForm id="formEmpresa"
+								editable="true"
+								layout="ResponsiveGridLayout"
+								labelSpanXL="4"
+								labelSpanL="4"
+								labelSpanM="4"
+								labelSpanS="12"
+								adjustLabelSpan="false"
+								emptySpanXL="0"
+								emptySpanL="0"
+								emptySpanM="0"
+								emptySpanS="0"
+								columnsXL="2"
+								columnsL="2"
+								columnsM="2"
+								singleContainerFullSize="false">
+								<f:content>
+									<core:Title text="{view>/titulo}"/>
+									<Label text="Razão Social" labelFor="razaosocial"/>
+									<Input id="razaosocial" value="{model>/RazaoSocial}" required="true"/>
+									
+									<Label text="CNPJ" labelFor="cnpj"/>
+									<Input id="cnpj" value="{model>/Cnpj}" required="true"/>
+									
+									<Label text="Nome Fantasia" labelFor="nomefantasia"/>
+									<Input id="nomefantasia" value="{model>/NomeFantasia}"/>
+									
+									<Label text="Inscrição Estadual" labelFor="insestadual"/>
+									<Input id="insestadual" value="{model>/InsEstadual}"/>
+									
+									<Label text="Regime Tributário" labelFor="regime"/>
+									<Select selectedKey="{model>/RegimeTributario}" 
+										id="regime">
+										<core:Item key="SIMPLES_NACIONAL" text="SIMPLES NACIONAL"/>
+										<core:Item key="SIMPLES_NACIONAL_EXCESSO_SUBLIMITE" text="SIMPLES NACIONAL - EXCESSO SUBLIMITE"/>
+										<core:Item key="REGIME_NORMAL" text="REGIME NORMAL"/>
+									</Select>
+									
+									<Label text="Contato" labelFor="contato"/>
+									<Input id="contato" value="{model>/Contato}"/>
+									
+									<Label text="E-mail" labelFor="email"/>
+									<Input id="email" value="{model>/Email}"/>
+									
+									<Label text="País BACEN" labelFor="pais"/>
+									<Input selectedKey="{path: 'model>/Pais', type: 'sap.ui.model.odata.type.Int32'}"
+										textFormatMode="KeyValue"
+										showSuggestion="true"
+										showValueHelp="true"
+										valueHelpRequest="handleSearchPais"
+										suggestionItems="{
+											path: '/PaisBacens',
+											events: {
+												dataReceived: '.paisBacenReceived'
+											}
+										}"
+										id="pais">
+										<suggestionItems>
+											<core:ListItem key="{Id}" text="{Nome}" additionalText="{Codigo}"/>
+										</suggestionItems>
+									</Input>
+									
+									<core:Title/>
+									<Label text="UF" labelFor="uf"/>
+									<Input selectedKey="{path: 'model>/Uf', type: 'sap.ui.model.odata.type.Int32'}"
+										textFormatMode="KeyValue"
+										showSuggestion="true"
+										showValueHelp="true"
+										valueHelpRequest="handleSearchUf"
+										suggestionItems="{
+											path: '/Ufs',
+											events: {
+												dataReceived: '.ufReceived'
+											}
+										}"
+										id="uf">
+										<suggestionItems>
+											<core:ListItem key="{Id}" text="{Sigla}"/>
+										</suggestionItems>
+									</Input>
+									
+									<Label text="Município" labelFor="municipio"/>
+									<Input selectedKey="{path: 'model>/Municipio', type: 'sap.ui.model.odata.type.Int32'}"
+										textFormatMode="KeyValue"
+										showSuggestion="true"
+										showValueHelp="true"
+										valueHelpRequest="handleSearchMunicipio"
+										suggestionItems="{
+											path: '/Municipios',
+											events: {
+												dataReceived: '.municipioReceived'
+											}
+										}"
+										id="municipio">
+										<suggestionItems>
+											<core:ListItem key="{Id}" text="{Nome}" additionalText="{Codigo}"/>
+										</suggestionItems>
+									</Input>
+									
+									<Label text="CEP" labelFor="cep"/>
+									<Input id="cep" value="{model>/Cep}"/>
+									
+									<Label text="Bairro" labelFor="bairro"/>
+									<Input id="bairro" value="{model>/Bairro}"/>
+									
+									<Label text="Logradouro" labelFor="logradouro"/>
+									<Input id="logradouro" value="{model>/Logradouro}"/>
+									
+									<Label text="Número" labelFor="numero"/>
+									<Input id="numero" value="{model>/Numero}"/>
+									
+									<Label text="Complemento" labelFor="comp"/>
+									<Input id="comp" value="{model>/Complemento}"/>
+									
+									<Label text="Telefone" labelFor="tel"/>
+									<Input id="tel" value="{model>/Telefone}"/>
+								</f:content>
+							</f:SimpleForm>
+						</Panel>
 					</VBox>
-					</Panel>
 				</content>
 				<footer>
 					<Toolbar>
