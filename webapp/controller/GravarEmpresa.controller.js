@@ -5,9 +5,8 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"br/com/idxtecEmpresa/helpers/UfHelpDialog",
 	"br/com/idxtecEmpresa/helpers/PaisBacenHelpDialog",
-	"br/com/idxtecEmpresa/helpers/MunicipiosHelpDialog",
-	"br/com/idxtecEmpresa/services/Session"
-], function(Controller, History, MessageBox, JSONModel, UfHelpDialog, PaisBacenHelpDialog, MunicipiosHelpDialog, Session) {
+	"br/com/idxtecEmpresa/helpers/MunicipiosHelpDialog"
+], function(Controller, History, MessageBox, JSONModel, UfHelpDialog, PaisBacenHelpDialog, MunicipiosHelpDialog) {
 	"use strict";
 
 	return Controller.extend("br.com.idxtecEmpresa.controller.GravarEmpresa", {
@@ -87,11 +86,7 @@ sap.ui.define([
 					"Logradouro": "",
 					"Numero": "",
 					"Complemento": "",
-					"Telefone": "",
-					"Empresa" : Session.get("EMPRESA_ID"),
-					"Usuario": Session.get("USUARIO_ID"),
-					"EmpresaDetails": { __metadata: { uri: "/Empresas(" + Session.get("EMPRESA_ID") + ")"}},
-					"UsuarioDetails": { __metadata: { uri: "/Usuarios(" + Session.get("USUARIO_ID") + ")"}}
+					"Telefone": ""
 				};
 				
 				oJSONModel.setData(oNovaEmpresa);
