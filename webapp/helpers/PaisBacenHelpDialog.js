@@ -1,8 +1,7 @@
 sap.ui.define([
-	"sap/ui/base/Object",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator"
-],function (Object, Filter, FilterOperator) {
+],function (Filter, FilterOperator) {
 	"use strict";
 	
 	return {
@@ -18,10 +17,6 @@ sap.ui.define([
 			}
 							
 			this._valueHelpDialog.open();
-		},
-		
-		getDialog: function() {
-			return this._valueHelpDialog;
 		},
 		
 		_handleValueHelpSearch : function (evt) {
@@ -43,6 +38,8 @@ sap.ui.define([
 				oInput.setSelectedKey(sId);
 			}
 			evt.getSource().getBinding("items").filter([]);
+			
+			this._valueHelpDialog = undefined;
 		}
 	};
 });

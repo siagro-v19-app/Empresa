@@ -9,7 +9,7 @@ xmlns:f="sap.ui.layout.form">
 			<Page showHeader="false">
 				<content>
 					<VBox class="sapUiSmallMargin">
-						<Panel headerText="Empresa">
+						<Panel headerText="{view>/titulo}">
 							<f:SimpleForm id="formEmpresa"
 								editable="true"
 								layout="ResponsiveGridLayout"
@@ -27,7 +27,7 @@ xmlns:f="sap.ui.layout.form">
 								columnsM="2"
 								singleContainerFullSize="false">
 								<f:content>
-									<core:Title text="{view>/titulo}"/>
+									<core:Title/>
 									<Label text="Razão Social" labelFor="razaosocial"/>
 									<Input id="razaosocial" value="{model>/RazaoSocial}" required="true"/>
 									
@@ -134,8 +134,8 @@ xmlns:f="sap.ui.layout.form">
 				<footer>
 					<Toolbar>
 						<ToolbarSpacer/>
-						<Button text="Salvar" icon="sap-icon://save" press="onSalvar"/>
-						<Button text="Cancelar" icon="sap-icon://reset" press="onVoltar"/>
+						<Button text="Salvar" press="onSalvar" type="Accept"/>
+   						<Button text="Fechar" press="onVoltar" type="Reject"/>
 					</Toolbar>
 				</footer>
 			</Page>

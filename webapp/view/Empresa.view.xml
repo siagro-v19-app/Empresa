@@ -6,63 +6,58 @@ xmlns="sap.m"
 xmlns:t="sap.ui.table">
 	<App id="app">
 		<pages>
-			<Page showHeader="false">
+			<Page showHeader="false" class="sapUiContentPadding" enableScrolling="false">
 				<content>
-					<VBox class="sapUiSmallMargin">
-						<Panel headerText="Empresa">
-							<t:Table id="tableEmpresa"
-								rows="{path: '/Empresas'}"
-								selectionMode="Single"
-								selectionBehavior="Row"
-								enableSelectAll="false"
-								editable="true"
-								visibleRowCountMode="Interactive"
-								enableBusyIndicator="true"
-								alternateRowColors="true"
-								enableCustomFilter="false">
-								<t:toolbar>
-									<Toolbar>
-										<Title text="Lista de Empresas"/> 
-									</Toolbar>
-								</t:toolbar>
-								<t:columns>
-									<t:Column filterProperty="RazaoSocial" sortProperty="RazaoSocial">
-										<Label text="Razão Social"/>
-										<t:template>
-											<Text text="{RazaoSocial}"/>
-										</t:template>
-									</t:Column>
-									<t:Column filterProperty="Cnpj" sortProperty="Cnpj">
-										<Label text="CNPJ"/>
-										<t:template>
-											<Text text="{Cnpj}"/>
-										</t:template>
-									</t:Column>
-									<t:Column filterProperty="RegimeTributario" sortProperty="RegimeTributario">
-										<Label text="Regime Tributário"/>
-										<t:template>
-											<Text text="{RegimeTributario}"/>
-										</t:template>
-									</t:Column>
-								</t:columns>
-								<t:footer>
-									<Toolbar>
-										<Button icon="sap-icon://refresh" press="onRefresh"/>
-										<ToolbarSpacer/>
-										<Button icon="sap-icon://filter"/>
-										<Button icon="sap-icon://clear-filter"/>
-									</Toolbar>
-								</t:footer>
-							</t:Table>
-						</Panel>
-					</VBox>
+					<t:Table id="tableEmpresa"
+						rows="{
+							path: '/Empresas',
+							sorter: {
+								path: 'RazaoSocial'
+							}
+						}"
+						selectionMode="Single"
+						selectionBehavior="Row"
+						class="sapUiSizeCondensed"
+						visibleRowCountMode="Auto"
+						enableBusyIndicator="true"
+						alternateRowColors="true">
+						<t:toolbar>
+							<Toolbar>
+								<Title text="Lista de Empresas"/>
+								<ToolbarSpacer/>
+								<SearchField placeholder="Pesquisar empresa..." width="30%" search="filtraEmpresa"/>
+							</Toolbar>
+						</t:toolbar>
+						<t:columns>
+							<t:Column filterProperty="RazaoSocial" sortProperty="RazaoSocial">
+								<Label text="Razão Social"/>
+								<t:template>
+									<Text text="{RazaoSocial}"/>
+								</t:template>
+							</t:Column>
+							<t:Column filterProperty="Cnpj" sortProperty="Cnpj">
+								<Label text="CNPJ"/>
+								<t:template>
+									<Text text="{Cnpj}"/>
+								</t:template>
+							</t:Column>
+							<t:Column filterProperty="RegimeTributario" sortProperty="RegimeTributario">
+								<Label text="Regime Tributário"/>
+								<t:template>
+									<Text text="{RegimeTributario}"/>
+								</t:template>
+							</t:Column>
+						</t:columns>
+					</t:Table>
 				</content>
 				<footer>
 					<Toolbar>
 						<ToolbarSpacer/>
-						<Button icon="sap-icon://add" text="Incluir novo" press="onIncluir"/>
-						<Button icon="sap-icon://edit" text="Editar" press="onEditar"/>
-						<Button icon="sap-icon://delete" text="Remover" press="onRemover"/>
+						<Button id="incluir" text="Incluir novo" press="onIncluir" type="Emphasized"/>
+						<Button id="editar" text="Editar" press="onEditar"/>
+						<Button id="remover" text="Remover" press="onRemover"/>
+						<ToolbarSeparator/>
+						<Button icon="sap-icon://refresh" press="onRefresh"/>
 					</Toolbar>
 				</footer>
 			</Page>

@@ -1,8 +1,10 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/m/MessageBox",
-	"sap/ui/model/json/JSONModel"
-], function(Controller, MessageBox, JSONModel) {
+	"sap/ui/model/json/JSONModel",
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator"
+], function(Controller, MessageBox, JSONModel, Filter, FilterOperator) {
 	"use strict";
 
 	return Controller.extend("br.com.idxtecEmpresa.controller.Empresa", {
@@ -11,6 +13,17 @@ sap.ui.define([
 			
 			this.getOwnerComponent().setModel(oParamModel, "parametros"); 
 			this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
+		},
+		
+		filtraEmpresa: function(oEvent){
+			var sQuery = oEvent.getParameter("query");
+			var oFilter = new Filter("RazaoSocial", FilterOperator.Contains, sQuery);
+			
+			var aFilters = [
+				oFilter
+			];
+
+			this.getView().byId("tableEmpresa").getBinding("rows").filter(aFilters, "Application");
 		},
 		
 		onRefresh: function(e){
