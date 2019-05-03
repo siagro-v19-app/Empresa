@@ -16,7 +16,7 @@ sap.ui.define([
 		},
 		
 		filtraEmpresa: function(oEvent){
-			var sQuery = oEvent.getParameter("query");
+			var sQuery = oEvent.getParameter("query").toUpperCase();
 			var oFilter = new Filter("RazaoSocial", FilterOperator.Contains, sQuery);
 			
 			var aFilters = [

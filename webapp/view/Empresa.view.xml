@@ -25,7 +25,7 @@ xmlns:t="sap.ui.table">
 							<Toolbar>
 								<Title text="Lista de Empresas"/>
 								<ToolbarSpacer/>
-								<SearchField placeholder="Pesquisar empresa..." width="30%" search="filtraEmpresa"/>
+								<SearchField placeholder="Pesquisar razão social..." width="30%" search="filtraEmpresa"/>
 							</Toolbar>
 						</t:toolbar>
 						<t:columns>
